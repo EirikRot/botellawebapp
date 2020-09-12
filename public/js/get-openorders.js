@@ -16,7 +16,7 @@ async function openOrders() {
 
     const respoonse = await fetch(url, options);
     const data = await respoonse.json();
-    // document.getElementById('antOrdre').textContent=data[0].total_orders;
+    document.getElementById('antUPordre').textContent=data.length;
     // document.getElementById('salesMonth').textContent=data[0].net_sales;
     console.log(data.length);
 }
