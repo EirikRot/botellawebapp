@@ -17,3 +17,4 @@ app.use(express.json({limit: 'imb'}))
 const database = new Datastore('database.db');
 database.loadDatabase();
 
+//Eirik tester
