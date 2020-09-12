@@ -10,11 +10,10 @@ app.use(cors());
 
 const Datastore  = require('nedb');
 const port=process.env.PORT || 8000;
-app.listen(port, () => console.log("listening to 80"));
+app.listen(port, () => console.log("listening to 8000"));
 app.use(express.static('public'));
 app.use(express.json({limit: 'imb'}))
 
 const database = new Datastore('database.db');
 database.loadDatabase();
 
-//Eirik tester
