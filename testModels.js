@@ -32,7 +32,7 @@ async function testGetProduct() {
     console.log(product);
 }
 
-
+//testGetProduct();
 
 async function testCreateOrderLine() {
     var ttFunctions = require('./models/tripletexModels');
