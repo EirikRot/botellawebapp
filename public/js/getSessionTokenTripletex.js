@@ -33,6 +33,7 @@ async function GetCustomer(clientID) {
 
   const response = await fetch(url, options);
   const dataJson = await response.json();
+  console.log(dataJson);
   if (clientID == "") {
     return ""
   } else {
@@ -40,7 +41,7 @@ async function GetCustomer(clientID) {
   }
 }
 
-async function addOrders(clientID) {
+async function addOrders(clientID, date, productID) {
   const client = await GetCustomer(clientID);
   var sessionToken = await getSessionTokenTripletex("test-dd7d8e6b-98a0-4d20-a396-87cffd0a659b", "test-7665ede9-6c60-4729-9f92-3fa57e4aea05");
   const options = {
