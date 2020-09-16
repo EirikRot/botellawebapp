@@ -1,36 +1,52 @@
      
-      <img src="img/logo2.svg">
+<script>
+ jQuery(document).ready(function($) {
+    var path = window.location.pathname.split("/").pop();
 
-      <a href="./index.html">
-        <div class="side-item">
-          <div class="menu-link">
-            <img src="img/home.svg" class="icon"></img><h4>Dashboard</h4>
-          </div>
-        </div>
-      </a>
-      
-      <a href="./orders.html">
-        <div class="side-item">
-          <div class="menu-link">
-            <img src="img/order.svg" class="icon"><h4>Ordre</h4><p>(fra botella.no)</p>
-          </div>
-        </div>
-      </a>
+       if ( path == ' ') {
+        path = 'index.html'
+        }
+    
+    var target = $('li[id="'+path+'"]')
+      target.addClass('active');
+})   
+ </script>
+    
+    <img src="img/logo2.svg">
 
-      <div class="side-item">
-        <div class="menu-link">
-          <img src="img/user.svg" class="icon"><h4>Kunder</h4><p>(Kommer snart)</p>
-        </div>
-      </div>
+      <div>
+        <ul class="side-item-list">
+          <li id="index.html" class="side-item">
+            <a href="./index.html">
+            <img src="img/home.svg" class="icon"></img>
+            <h4>Dashboard</h4>
+            </a>
+          </li>
+          
+          <li id="orders.html" class="side-item">
+            <a href="./orders.html">
+            <img src="img/home.svg" class="icon"></img>
+            <h4>Ordre</h4><p>(fra botella.no)</p>
+            </a>
+          </li>
 
-      <div class="side-item">
-        <div class="menu-link">
-          <img src="img/bottle.svg" class="icon"><h4>Produkter</h4><p>(Kommer snart)</p>
+          <li id="#" class="side-item">
+            <a href="#">
+              <img src="img/user.svg" class="icon"><h4>Kunder</h4><p>(Kommer snart)</p>
+            </a>
+          </li>
+
+          <li id="#" class="side-item">
+            <a href="#">
+              <img src="img/bottle.svg" class="icon"><h4>Produkter</h4><p>(Kommer snart)</p>
+            </a>
+          </li>
+
+          <li id="#" class="side-item">
+            <a href="#">
+              <img src="img/truck.svg" class="icon"><h4>Kjøreliste</h4><p>(Kommer snart)</p>
+            </a>
+          </li>
+
+          </ul>
         </div>
-      </div>
-      
-      <div class="side-item">
-        <div class="menu-link">
-          <img src="img/truck.svg" class="icon"><h4>Kjøreliste</h4><p>(Kommer snart)</p>
-        </div>
-      </div>
