@@ -17,3 +17,12 @@ app.use(express.json({limit: 'imb'}))
 const database = new Datastore('database.db');
 database.loadDatabase();
 
+app.get('/api/wc/orders', async (request, response) => {
+    var orderFunctions = require('./models/wcModels');
+    var orders = await orderFunctions.getOrders();
+    const data = await orders.json();
+    //const tid = data.timeseries(0).time;
+    response.json(data);
+  }
+);
+

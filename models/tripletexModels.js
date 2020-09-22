@@ -40,10 +40,10 @@ module.exports = {
       }
     },
 
-  addOrders:
+  createOrder:
 
-    async function createOrder(clientID, price, sku, quantity, sessionToken) {
-      const client = await GetCustomer(clientID);
+    async function createOrder(customer, reference, orderDate, deliveryDate, sessionToken) {
+      //const client = await GetCustomer(clientID);
       //var sessionToken = await getSessionTokenTripletex("test-dd7d8e6b-98a0-4d20-a396-87cffd0a659b", "test-7665ede9-6c60-4729-9f92-3fa57e4aea05");
       const options = {
         method: 'POST',
@@ -51,7 +51,7 @@ module.exports = {
           'Content-Type': "application/json",
           Authorization: "Basic " + sessionToken
         },
-        body: JSON.stringify({ customer: client, reference: "marius test 1", orderDate: '2020-09-06', deliveryDate: '2020-09-09' })
+        body: JSON.stringify({ customer: customer, reference: reference, orderDate: orderDate, deliveryDate: deliveryDate })
       };
 
       const response = await fetch("https://api.tripletex.io/v2/order", options);
@@ -81,7 +81,7 @@ module.exports = {
   
   createOrderline:
 
-    async function(sessionToken, product) {
+    async function(sessionToken, product, order, price, quantity,) {
       
       const options = {
         method: 'POST',
@@ -90,7 +90,7 @@ module.exports = {
           'Content-Type': "application/json",
           Authorization: "Basic " + sessionToken
         },
-        body: JSON.stringify({product: product}),
+        body: JSON.stringify({product: product, order: order, count: quantity, unitPriceExcludingVatCurrency: price}),
         
       };
 
