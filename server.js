@@ -19,9 +19,10 @@ database.loadDatabase();
 
 app.get('/api/wc/orders', async (request, response) => {
     var orderFunctions = require('./models/wcModels');
-    var orders = await orderFunctions.getOrders();
-    const data = await orders.json();
+    const data = await orderFunctions.getOrders();
+    //const data = await orders.json();
     //const tid = data.timeseries(0).time;
+    //console.log(data);
     response.json(data);
   }
 );
