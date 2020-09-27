@@ -6,3 +6,10 @@ async function getWCOrders() {
     console.log(data);
     document.getElementById("antUPordre").textContent = data.length;
 }
+
+async function transferOrdersTT() {
+    const url = '/api/wc/orders';
+    const response = await fetch(url);
+    const orders = await response.json();
+
+}

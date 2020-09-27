@@ -27,3 +27,17 @@ app.get('/api/wc/orders', async (request, response) => {
   }
 );
 
+app.post('/api/TT/orders', async (request, response) => {
+    //var orderFunctions = require('./models/wcModels');
+    //const data = await orderFunctions.getOrders();
+
+    console.log(request);
+    //const data = await orders.json();
+    //const tid = data.timeseries(0).time;
+    //console.log(data);
+    //response.json(data);
+  }
+);
+
+
+

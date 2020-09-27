@@ -2,19 +2,29 @@ const fetch = require('node-fetch');
 
 async function testGetOrdersWC() {
     var orderFunctions = require('./models/wcModels');
-    var orders = await orderFunctions.getOrders();
+    var orders = await orderFunctions.getOrders("all");
     console.log(orders);
-    var customerID = orders[0].meta_data[4].value;
-    console.log(customerID);
+    //var customerID = orders[0].meta_data[4].value;
+    YYconsole.log(customerID);
 }
 
-testGetOrdersWC();    
+//testGetOrdersWC();
+
+async function testUpdateOrdersWC() {
+    var orderFunctions = require('./models/wcModels');
+    var orders = await orderFunctions.updateOrders("13657", "completed");
+    console.log(orders);
+}
+
+testUpdateOrdersWC();
 
 async function testGetOrdersTT() {
     var ttFunctions = require('./models/tripletexModels');
     var sessionToken = await ttFunctions.getSessionToken("test-dd7d8e6b-98a0-4d20-a396-87cffd0a659b","test-7665ede9-6c60-4729-9f92-3fa57e4aea05");
     console.log(sessionToken);
 }
+
+
 
 //testGetOrdersTT();
 
