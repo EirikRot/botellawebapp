@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Botella by Fram Tech</title>
+    <link rel="stylesheet" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <style> #map{
+        height: 700px;
+        width: 100%;
+    } </style>
+  </head>
+    <div class="grid-container">
+      <div id="grid-left" class="grid-left"></div>
+    
+    <body>
+
+        <h1 style="text-align:center;"> Kjørerute</h1>
+        <div id="map"></div> 
+        <script>
+
+            function createMarker(map, position, content) {
+                var marker = new google.maps.Marker({
+                    position: position,
+                    map:map,
+                    
+                });
+                
+                var infoWindow = new google.maps.InfoWindow({
+                    content: content
+                });
+
+                marker.addListener('click', function() {
+                    infoWindow.open(map, marker);
+                });
+            }
+
+            async function getAdresses(map) {
+                const response = await fetch('/api/wc/orders');
+                const data = await response.json();
+                var addresses = [];
+                var contents = [];
+                var orderlineText = "";
+                for (i=0; i<data.length;i++) {
+                    var address = data[i].shipping.address_1 + " " + data[i].shipping.postcode + " " + data[i].shipping.city;
+                    var lineHeader = "<h1> Ordre: " + data[i].id + ". Kunde: " + data[i].billing.company + " " + data[i].billing.first_name + " </h1>" ;
+                    if (addresses.includes(address) ) {
+                        var index = addresses.indexOf(address);
+                        for (j=0;j<data[i].line_items.length;j++) {
+                            orderlineText = "<p>" + data[i].line_items[j].quantity + " " + data[i].line_items[j].name + "</p>";
+                        }
+                        contents[index] = contents[index] + lineHeader + orderlineText+ "<br>"
+                    } else {
+                        addresses.push(address);
+                        for (j=0;j<data[i].line_items.length;j++) {
+                            orderlineText = "<p>" + data[i].line_items[j].quantity + " " + data[i].line_items[j].name + "</p>";
+                        }
+                        contents.push(lineHeader + orderlineText + "<br>");
+                    }
+  
+                }
+                //console.log(addresses);
+                //console.log(contents);
+
+                for (i=0;i<addresses.length;i++) {
+                    var responseLL = await fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" + addresses[i] + "&key=AIzaSyBMGu-3FMiev7xeUjCl14Oi-mjdY1vuqbc");
+                    var latLong = await responseLL.json();
+                    var position = latLong.results[0].geometry.location; 
+                    createMarker(map, position, contents[i]);
+                }
+            }
+           
+            
+            async function initMap() {
+                if (navigator.geolocation) {
+                   navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                }
+
+                
+                async function showPosition(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude
+                    
+                    
+                    var center = {lat: latitude, lng: longitude};
+                    var options = {
+                        zoom:10,
+                        center: center
+                    }
+                    var map = new google.maps.Map(document.getElementById('map'), options);
+                    getAdresses(map);
+                }
+            }    
+        </script>
+        <script defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMGu-3FMiev7xeUjCl14Oi-mjdY1vuqbc&callback=initMap">
+        </script>
+
+    </body>
+</html>
